@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, World!</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+      <h1 class="title">Hello World!</h1>
+      <p id="currentTime"></p>
+      <script src="script.js"></script>
+  </body>
+</html><!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>精品咖啡點單 | Signature Brew</title>
+<style>
+    :root {
+        --primary-accent: #3d3d3d; /* 換成更深邃的質感黑 */
+        --bg-gradient: linear-gradient(145deg, #e6e9f0 0%, #eef1f5 100%);
+        --glass-bg: rgba(255, 255, 255, 0.85);
+    }
+
+    body { 
+        font-family: 'PingFang SC', 'STHeiti', sans-serif; 
+        background: var(--bg-gradient);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        margin: 0;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 400px;
+        margin: auto;
+        background: var(--glass-bg);
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        backdrop-filter: blur(12px);
+    }
+
+    h2 { text-align: center; color: #222; letter-spacing: 1px; margin-bottom: 30px; font-weight: 600; }
+    h3 { font-size: 13px; color: #999; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 1px; }
+
+    .group { 
+        display: grid; 
+        grid-template-columns: 1fr 1fr; 
+        gap: 12px; 
+        margin-bottom: 25px; 
+    }
+
+    button { 
+        padding: 15px 10px; 
+        border-radius: 10px; 
+        border: 1px solid #eee; 
+        background: #fff;
+        cursor: pointer;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        font-size: 14px;
+        color: #555;
+    }
+
+    button:active { transform: scale(0.95); }
+
+    /* 選中狀態樣式 */
+    .selected { 
+        background: var(--primary-accent) !important; 
+        color: #fff !important; 
+        border-color: var(--primary-accent) !important;
+        box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+    }
+
+    .receipt {
+        background: #f9f9f9;
+        padding: 20px;
+        border-radius: 12px;
+        margin-top: 30px;
+        border: 1px solid #f0f0f0;
+    }
+
+    .receipt p { margin: 10px 0; font-size: 14px; display: flex; justify-content: space-between; color: #666; }
+    .receipt b { color: #222; font-size: 22px; font-family: 'DIN Alternate', sans-serif; }
+    
+    small { font-size: 11px; opacity: 0.7; margin-left: 2px; }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>ORDER COFFEE</h2>
+
+    <div class="box">
+        <h3>1. 選擇豆種 / BEAN</h3>
+        <div class="group">
+            <button onclick="selectItem(this, 'bean', '坚果星球', 15)">坚果星球<small>¥15</small></button>
+            <button onclick="selectItem(this, 'bean', '花魁', 22)">花魁<small>¥20</small></button>
+            <button onclick="selectItem(this, 'bean', '班莎', 28)">班莎<small>¥30</small></button>
+            <button onclick="selectItem(this, 'bean', '瑰夏', 35)">瑰夏<small>¥26</small></button>
+        </div>
+    </div>
+
+    <div class="box">
+        <h3>2. 美式 /Black</h3>
+        <div class="group">
+            <button onclick="selectItem(this, 'drink', '美式')">冰 Iced</button>
+            <button onclick="selectItem(this, 'drink', '拿鐵')">熱 Hot</button>
+        </div>
+    </div>
+
+    <div class="box">
+        <h3>3. 拿鐵 / White</h3>
+        <div class="group">
+            <button onclick="selectItem(this, 'temp', '冷')">冰 Iced</button>
+            <button onclick="selectItem(this, 'temp', '熱')">熱 Hot</button>
+        </div>
+    </div>
+
+    <div class="receipt">
+        <p><span>Bean:</span><span id="res-bean">-</span></p>
+        <p><span>Type:</span><span id="res-drink">-</span></p>
+        <p><span>Temp:</span><span id="res-temp">-</span></p>
+        <hr style="border:0; border-top:1px solid #eee; margin: 15px 0;">
+        <p><b><span style="font-size:14px; margin-right:4px;">¥</span><span id="price">0.00</span></b></p>
+    </div>
+</div>
+
+<script>
+let currentPrice = 0;
+
+function selectItem(element, type, name, price = null) {
+    // 移除同組選中
+    const buttons = element.parentElement.getElementsByTagName('button');
+    for (let btn of buttons) btn.classList.remove('selected');
+
+    // 設為選中
+    element.classList.add('selected');
+
+    // 更新數據
+    document.getElementById('res-' + type).innerText = name;
+
+    // 更新價格 (RMB 格式化)
+    if (price !== null) {
+        currentPrice = price;
+        document.getElementById('price').innerText = currentPrice.toFixed(2);
+    }
+}
+</script>
+
+</body>
+</html>
